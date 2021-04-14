@@ -8,7 +8,7 @@ const express = require("express");
 // MongoDB
 const mongoose = require("mongoose");
 // Local port 4000 used for testing.
-const port = 4005;
+const port = process.env.PORT || 4000;
 const app = express();
 
 // Public folder used for css, and other files on local host.
