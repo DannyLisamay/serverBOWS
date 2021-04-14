@@ -14,8 +14,9 @@ app.use(express.static("public"));
 //app.use(express.urlencoded()); //Parse URL-encoded bodies
 
 // Connent mongoDB using .env for enviroment varibles
-// mongoose.connect("mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@cluster0.k5s63.mongodb.net/BOWS?retryWrites=true&w=majority", { useNewUrlParser: true });
-mongoose.connect("mongodb+srv://Danny:UMLBOWS1!@cluster0.k5s63.mongodb.net/BOWS?retryWrites=true&w=majority", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URL ||
+  "mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@cluster0.k5s63.mongodb.net/BOWS?retryWrites=true&w=majority",
+  { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.set("useCreateIndex", true);
 
 // Schema
@@ -33,7 +34,6 @@ const resort = mongoose.model('resort', resortSchema);
 //GET all articles.
 app.route("/")
   .get((req, res) => {
-    console.log("test");
     resort.find((err, resort) => {
       if (!err) {
         res.send(resort);
