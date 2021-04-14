@@ -34,7 +34,6 @@ const resort = mongoose.model('resort', resortSchema);
 app.route("/")
   .get((req, res) => {
     console.log("test");
-    res.send("Test")
     resort.find((err, resort) => {
       if (!err) {
         res.send(resort);
