@@ -7,7 +7,6 @@ require('dotenv').config();
 const express = require("express");
 // MongoDB
 const mongoose = require("mongoose");
-const { lowerFirst } = require('lodash');
 // Local port 4000 used for testing.
 const port = 4005;
 const app = express();
@@ -78,7 +77,7 @@ app.route("/:resortName")
       }
     });
   })
-  //PUT/POST
+  //PUT/POST specific resort
   .put((req, res) => {
     resort.updateOne(
       { name: req.params.resortName },
@@ -96,6 +95,7 @@ app.route("/:resortName")
       }
     )
   })
+  //UPDATE specific resort
   .patch((req, res) => {
     resort.updateOne(
       { name: req.params.resortName },
@@ -109,6 +109,7 @@ app.route("/:resortName")
       }
     );
   })
+  //DELETE specific resort
   .delete((req, res) => {
     resort.deleteOne(
       { name: req.params.resortName },
