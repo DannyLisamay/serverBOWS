@@ -4,7 +4,8 @@
   "description": "Be One with the Snow is a web-based application that targets skiers and snowboarders across the United States to find, organize, plan, and experience mountains and ski resorts much easier.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
