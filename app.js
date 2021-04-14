@@ -7,8 +7,6 @@ require('dotenv').config();
 const express = require("express");
 // MongoDB
 const mongoose = require("mongoose");
-// Local port 4000 used for testing.
-const port = process.env.PORT || 4000;
 const app = express();
 
 // Public folder used for css, and other files on local host.
@@ -124,7 +122,8 @@ app.route("/:resortName")
     );
   });
 
-
+// Local port 4000 used for testing.
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`BOWS app listening at http://localhost:${port}`)
 });
