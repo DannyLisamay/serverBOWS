@@ -8,10 +8,15 @@ const express = require("express");
 // MongoDB
 const mongoose = require("mongoose");
 const app = express();
+// CORS
+const cors = require('cors');
 
 // Public folder used for css, and other files on local host.
 app.use(express.static("public"));
 //app.use(express.urlencoded()); //Parse URL-encoded bodies
+
+// Enable All CORS Requests)
+app.use(cors());
 
 // Connent mongoDB using .env for enviroment varibles
 mongoose.connect(process.env.MONGODB_URL ||
