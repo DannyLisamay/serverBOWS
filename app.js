@@ -9,7 +9,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { lowerFirst } = require('lodash');
 // Local port 4000 used for testing.
-const port = 4003;
+const port = 4005;
 const app = express();
 
 // Public folder used for css, and other files on local host.
@@ -27,24 +27,100 @@ const resortSchema = new mongoose.Schema({
   price: Object
 });
 
-const resort = mongoose.model('Resort', resortSchema);
+const resort = mongoose.model('resort', resortSchema);
 
 //RESTFUL API
+//chainned route handlers
 //GET
-app.get("/", (req, res) => {
-  resort.find((err, resort) => {
-    if (!err) {
-      res.send(resort);
-    } else {
-      res.send(err);
-    }
+//GET all articles.
+app.route("/")
+  .get((req, res) => {
+    resort.find((err, resort) => {
+      if (!err) {
+        res.send(resort);
+      } else {
+        res.send(err);
+      }
+    });
+  })
+
+  //PUT/POST
+  .post((req, res) => {
+    const newResort = new resort({
+      name: req.body.name,
+      location: req.body.location,
+      price: req.body.price
+    });
+    newResort.save();
+  })
+  //DELETE
+  //DELETE specific article
+  //Please dont use this taylor or sean.
+  .delete((req, res) => {
+    resort.deleteMany((err) => {
+      if (!err) {
+        res.send("Deleted all resorts");
+      } else {
+        res.send(err);
+      }
+    });
   });
-});
 
-//PUT
-app.post("/", (req, res) => {
-
-});
+//chainned route handlers
+//GET specific resort
+app.route("/:resortName")
+  .get((req, res) => {
+    resort.findOne({ name: req.params.resortName }, (err, foundResort) => {
+      if (foundResort) {
+        res.send(foundResort);
+      } else {
+        res.send("No resort with that name found.");
+      }
+    });
+  })
+  //PUT/POST
+  .put((req, res) => {
+    resort.updateOne(
+      { name: req.params.resortName },
+      {
+        name: req.body.name,
+        location: req.body.location,
+        price: req.body.price
+      },
+      (err) => {
+        if (!err) {
+          res.send("Updated resort.")
+        } else {
+          res.send(err);
+        }
+      }
+    )
+  })
+  .patch((req, res) => {
+    resort.updateOne(
+      { name: req.params.resortName },
+      { $set: req.body },
+      (err) => {
+        if (!err) {
+          res.send("Updated resort.")
+        } else {
+          res.send(err);
+        }
+      }
+    );
+  })
+  .delete((req, res) => {
+    resort.deleteOne(
+      { name: req.params.resortName },
+      (err) => {
+        if (!err) {
+          res.send("Deleted resort.")
+        } else {
+          res.send(err);
+        }
+      }
+    );
+  });
 
 
 app.listen(port, () => {
