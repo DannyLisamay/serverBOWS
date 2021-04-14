@@ -16,7 +16,8 @@ app.use(express.static("public"));
 app.use(express.urlencoded()); //Parse URL-encoded bodies
 
 // Connent mongoDB using .env for enviroment varibles
-mongoose.connect("mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@cluster0.k5s63.mongodb.net/BOWS?retryWrites=true&w=majority", { useNewUrlParser: true });
+// mongoose.connect("mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@cluster0.k5s63.mongodb.net/BOWS?retryWrites=true&w=majority", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://Danny:UMLBOWS1!@cluster0.k5s63.mongodb.net/BOWS?retryWrites=true&w=majority", { useNewUrlParser: true });
 mongoose.set("useCreateIndex", true);
 
 // Schema
