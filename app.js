@@ -11,7 +11,7 @@ const app = express();
 
 // Public folder used for css, and other files on local host.
 app.use(express.static("public"));
-app.use(express.urlencoded()); //Parse URL-encoded bodies
+//app.use(express.urlencoded()); //Parse URL-encoded bodies
 
 // Connent mongoDB using .env for enviroment varibles
 // mongoose.connect("mongodb+srv://" + process.env.DB_USER + ":" + process.env.DB_PASS + "@cluster0.k5s63.mongodb.net/BOWS?retryWrites=true&w=majority", { useNewUrlParser: true });
